@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [Regression Suite]">
+  <parameter name="runLocal" value="true"/>
+  <parameter name="osType" value="mac"/>
+  <parameter name="useGrid" value="false"/>
+  <parameter name="useAWS" value="false"/>
+  <parameter name="useSauceLabs" value="false"/>
+  <parameter name="browserType" value="chrome"/>
+  <test name="Parabank(failed)">
+    <parameter name="runLocal" value="true"/>
+    <parameter name="osType" value="mac"/>
+    <parameter name="useGrid" value="false"/>
+    <parameter name="useAWS" value="false"/>
+    <parameter name="useSauceLabs" value="false"/>
+    <parameter name="browserType" value="chrome"/>
+    <classes>
+      <class name="Runners.ParaBank_Runner">
+        <methods>
+          <include name="feature"/>
+          <include name="first"/>
+          <include name="tearDownClass"/>
+        </methods>
+      </class> <!-- Runners.ParaBank_Runner -->
+    </classes>
+  </test> <!-- Parabank(failed) -->
+</suite> <!-- Failed suite [Regression Suite] -->

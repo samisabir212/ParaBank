@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Regression Suite">
+
+
+	<test name="Parabank">
+
+		<classes>
+
+			<parameter name="osType" value="mac"></parameter>
+			<parameter name="browserType" value="chrome"></parameter>
+			<parameter name="runLocal" value="true"></parameter>
+			<parameter name="useGrid" value="false"></parameter>
+			<parameter name="useAWS" value="false"></parameter>
+			<parameter name="useSauceLabs" value="false"></parameter>
+			<parameter name="accountStatus" value="ACTIVE"></parameter>
+			<parameter name="environment" value="DEV"></parameter>
+
+			<class name="Runners.ParaBank_Runner"></class>
+
+		</classes>
+	</test>
+	
+	
+	<test name="Parabank">
+
+		<classes>
+
+			<parameter name="osType" value="mac"></parameter>
+			<parameter name="browserType" value="chrome"></parameter>
+			<parameter name="runLocal" value="true"></parameter>
+			<parameter name="useGrid" value="false"></parameter>
+			<parameter name="useAWS" value="false"></parameter>
+			<parameter name="useSauceLabs" value="false"></parameter>
+			<parameter name="accountStatus" value="ACTIVE"></parameter>
+			<parameter name="environment" value="STAGING"></parameter>
+
+			<class name="Runners.ParaBank_Runner"></class>
+
+		</classes>
+	</test>
+	
+	
+		<test name="Parabank">
+
+		<classes>
+
+			<parameter name="osType" value="mac"></parameter>
+			<parameter name="browserType" value="chrome"></parameter>
+			<parameter name="runLocal" value="true"></parameter>
+			<parameter name="useGrid" value="false"></parameter>
+			<parameter name="useAWS" value="false"></parameter>
+			<parameter name="useSauceLabs" value="false"></parameter>
+			<parameter name="accountStatus" value="ACTIVE"></parameter>
+			<parameter name="environment" value="FT"></parameter>
+
+			<class name="Runners.ParaBank_Runner"></class>
+
+		</classes>
+	</test>
+	
+	<test name="Parabank">
+
+		<classes>
+
+			<parameter name="osType" value="mac"></parameter>
+			<parameter name="browserType" value="chrome"></parameter>
+			<parameter name="runLocal" value="true"></parameter>
+			<parameter name="useGrid" value="false"></parameter>
+			<parameter name="useAWS" value="false"></parameter>
+			<parameter name="useSauceLabs" value="false"></parameter>
+			<parameter name="accountStatus" value="ACTIVE"></parameter>
+			<parameter name="environment" value="SIT"></parameter>
+
+			<class name="Runners.ParaBank_Runner"></class>
+
+		</classes>
+	</test>
+	
+	
+	
+	
+	<test name="Parabank">
+
+		<classes>
+
+			<parameter name="osType" value="mac"></parameter>
+			<parameter name="browserType" value="chrome"></parameter>
+			<parameter name="runLocal" value="true"></parameter>
+			<parameter name="useGrid" value="false"></parameter>
+			<parameter name="useAWS" value="false"></parameter>
+			<parameter name="useSauceLabs" value="false"></parameter>
+			<parameter name="accountStatus" value="ACTIVE"></parameter>
+			<parameter name="environment" value="PERF"></parameter>
+
+			<class name="Runners.ParaBank_Runner"></class>
+
+		</classes>
+	</test>
+	
+	<test name="Parabank">
+
+		<classes>
+
+			<parameter name="osType" value="mac"></parameter>
+			<parameter name="browserType" value="chrome"></parameter>
+			<parameter name="runLocal" value="true"></parameter>
+			<parameter name="useGrid" value="false"></parameter>
+			<parameter name="useAWS" value="false"></parameter>
+			<parameter name="useSauceLabs" value="false"></parameter>
+			<parameter name="accountStatus" value="ACTIVE"></parameter>
+			<parameter name="environment" value="PROD"></parameter>
+
+			<class name="Runners.ParaBank_Runner"></class>
+
+		</classes>
+	</test>
+	
+	
+	
+	<!-- 
+	<test name="Parabank">
+
+		<classes>
+
+			<parameter name="osType" value="mac"></parameter>
+			<parameter name="browserType" value="chrome"></parameter>
+			<parameter name="runLocal" value="true"></parameter>
+			<parameter name="useGrid" value="false"></parameter>
+			<parameter name="useAWS" value="false"></parameter>
+			<parameter name="useSauceLabs" value="false"></parameter>
+			<parameter name="accountStatus" value="CLOSED"></parameter>
+
+			<class name="Runners.ParaBank_Runner"></class>
+
+		</classes>
+	</test>
+ -->
+
+
+
+</suite>
+
+	
+	
+	
