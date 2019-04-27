@@ -25,7 +25,7 @@ public class Constants {
 	public final static String TRANSFERFUNDS_URI = "/parabank/register.htm";
 	public final static String DEPOSIT_URI = "/parabank/register.htm";
 	public final static String WITHDRAW_URI = "/parabank/register.htm";
-
+	public static String COMMENT = null;
 	public static String requestBody= null;
 	public static String RELEASE_NUMBER = null;
 	public static String APPTYPE = null;

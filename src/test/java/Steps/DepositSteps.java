@@ -64,9 +64,9 @@ public class DepositSteps extends WebDriverManager {
 		}
 		
 		@And("the account Balance should be (.*) dollars")
-		public void validateAccountBalance_For_Successful_Deposit_Scenario(String expectedAccountBalance) {
+		public void validateAccountBalance_For_Successful_Deposit_Scenario(String expectedAccountBalance) throws IOException {
 			
-			String expectedBalance = "$515.50";
+			String expectedBalance = "$"+expectedAccountBalance;
 			overviewPage.validateBalance_BalanceTotal_AvailbleAmount(expectedBalance);
 			
 		}
@@ -112,7 +112,7 @@ public class DepositSteps extends WebDriverManager {
 					// write to excel write to log
 					Lib.excelwrite(Constants.runResultsFileName,
 							new Object[] { Lib.getcurrentdate(), Environment, "Parabank", Constants.ACCOUNTSTATUS, "DEPOSIT",
-									testname, Status, "n/a", "n/a", "n/a", "RC-8989", "1.0", "COMMENT HERE" });
+									testname, Status, "n/a", "n/a", "n/a", "RC-8989", "1.0",  });
 	
 					driver.close();
 					// driver.quit();

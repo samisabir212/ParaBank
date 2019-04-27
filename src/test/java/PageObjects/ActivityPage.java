@@ -36,7 +36,17 @@ public class ActivityPage extends BasePage {
 		
 		System.out.println("expectedWithdrawlAmount :"+ expectedWithdrawlAmount);
 		System.out.println("actualDebitAmount : "+ debitAmountTxtValue.getText());
-		Assert.assertEquals(debitAmountTxtValue.getText(), expectedWithdrawlAmount);
+		try {
+			
+			Assert.assertEquals(debitAmountTxtValue.getText(), expectedWithdrawlAmount);
+			Logger.log("validateWithdrawlDebitAmount PASSED", "Withdraw", "Successful_Withdraw");
+
+		}catch(java.lang.AssertionError e) {
+			
+			Logger.log("validateWithdrawlDebitAmount Failed : "+ e.getMessage(), "Withdraw", "Successful_Withdraw");
+			COMMENT = e.getMessage();
+
+		}
 
 	}
 	

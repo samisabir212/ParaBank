@@ -8,6 +8,8 @@ import org.testng.Assert;
 import org.testng.asserts.Assertion;
 import org.testng.asserts.SoftAssert;
 
+import Util.Logger;
+
 
 public class OverviewPage extends BasePage {
 
@@ -26,24 +28,32 @@ public class OverviewPage extends BasePage {
 	public static @FindBy(xpath = ".//*[@id='accountTable']/tbody/tr[1]/td[3]") WebElement availbleAmountTxt;
 	public static @FindBy(xpath = ".//*[@id='accountTable']/tbody/tr[2]/td[2]/b") WebElement totalBalanceTxt;
 
-	public String validateBalance_BalanceTotal_AvailbleAmount(String expectedBalance) {
+	public String validateBalance_BalanceTotal_AvailbleAmount(String expectedBalance) throws IOException {
 
-		String actualBalance = getBalanceValueTxt();
-		System.out.println("Actual Balance : "+actualBalance);
-		System.out.println("expected Balance : "+expectedBalance);
-		//Assert.assertEquals(expectedBalance, actualBalance, "Balance Validation failed");
-		Assert.assertEquals(actualBalance, expectedBalance);
 		
+		try {
+			actualUIbalance = getBalanceValueTxt();
+			Assert.assertEquals(expectedBalance, actualUIbalance);	
+			Logger.log("actualUIbalance :" + actualUIbalance +"vs expected expected Balance : "+ expectedBalance +"Passed", "Withdraw", "Successful_Withdraw");
+
+			String actualAvailableBalance = getAvaibleAmount();	
+			Assert.assertEquals(expectedBalance, actualAvailableBalance);
+			Logger.log("actualAvailableBalance :" + actualAvailableBalance +"vs expected expected Balance : "+ expectedBalance +"Passed", "Withdraw", "Successful_Withdraw");
+
+			String actualTotalBalance = getTotalBalance();
+			Assert.assertEquals(expectedBalance, actualTotalBalance);
+			Logger.log("actualTotalBalance :" + actualTotalBalance +"vs expected expected Balance : "+ expectedBalance +"Passed", "Withdraw", "Successful_Withdraw");
+			
+		}catch(java.lang.AssertionError e) {
+			
+			System.out.println("validateBalance_BalanceTotal_AvailbleAmount step Failed : "+ e.getMessage());
+			Logger.log("validateBalance_BalanceTotal_AvailbleAmount step Failed : "+ e.getMessage(), "Withdraw", "Successful_Withdraw");
+			
+			COMMENT = e.getMessage();
+
+		}
 		
-		String actualAvailableBalance = getAvaibleAmount();
-		System.out.println("actualAvailableBalance : "+ actualAvailableBalance);
-		Assert.assertEquals(expectedBalance, actualAvailableBalance, "expected balance vs actualAvailableBalance PASSED");
-
-		String actualTotalBalance = getTotalBalance();
-		System.out.println("actualTotalBalance : "+ actualTotalBalance);
-		Assert.assertEquals(expectedBalance, actualTotalBalance, "expected balance vs actualTotalBalance PASSED");
-
-		return actualBalance;
+		return actualUIbalance;
 	}
 	
 	
