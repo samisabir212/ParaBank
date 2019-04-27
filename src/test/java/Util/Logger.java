@@ -10,6 +10,8 @@ import Constants.Constants;
 public class Logger {
 	
 	///Users/sami/Desktop/Automation/sidrissi/Parabank/Runs/2019_04_08_1046STAGING/Logs/Withdraw
+	
+	
 	public static void createlogfile(String LogsPath, String ServiceName, String logFileName) throws IOException {
 
 		//LogsPath+"/"+ServiceName+"/"+logFileName+".txt"
@@ -22,6 +24,8 @@ public class Logger {
 	    	  System.out.println("file already exists : "+file.getAbsolutePath().toString());
 	      }
 	}
+	
+	
 	
 	public static void log(String strLine,String ServiceName, String logFileName) throws IOException {
 

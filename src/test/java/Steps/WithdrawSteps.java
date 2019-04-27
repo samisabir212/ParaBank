@@ -58,9 +58,6 @@ public class WithdrawSteps extends WebDriverManager {
 		@Given("a customer has an account")
 		public void createNewAccount() throws Exception {
 
-			System.out.println("*************************");
-			System.out.println("WITHDRAW FEATURE UNDER TEST");
-			System.out.println("*************************");
 			
 			BasePage.loadUrl("https://parabank.parasoft.com/parabank/index.htm");
 			
@@ -130,14 +127,21 @@ public class WithdrawSteps extends WebDriverManager {
 		public void verifyBalance(String balance)
 				throws InterruptedException, IOException, SAXException, ParserConfigurationException {
 
-//			click accounts over view link
-			// loggedinPage.clickAccountOverViewLink(); already on over view page
-//			validate the new account balance on the UI
+
 
 			getAccount_ResponseMap = GetAccount.getAccount_Request(accountID);
 			expectedBalance = balance;
-			Assert.assertEquals(expectedBalance, getAccount_ResponseMap.get("balance"));
-			Logger.log("actualBalance vs expectedBalance Assertion PASSED", "Withdraw", "Successful_Withdraw");
+			
+			try {
+				Assert.assertEquals(expectedBalance, getAccount_ResponseMap.get("balance"));
+				Logger.log("actualBalance vs expectedBalance Assertion PASSED", "Withdraw", "Successful_Withdraw");
+			}catch(java.lang.AssertionError e) {
+				
+				System.out.println("Exception : "+ e.getMessage());
+				Logger.log("actualBalance vs expectedBalance Assertion FAILED : "+e.getMessage(), "Withdraw", "Successful_Withdraw");
+
+			}
+			
 
 		}
 
@@ -156,10 +160,21 @@ public class WithdrawSteps extends WebDriverManager {
 			activityPage.clickFirstTransactionLink();
 
 //			validate transaction amount on UI
-			String actualWithDrawAmount = transactionDetailsPage.getAmountTxtValue();
-			Assert.assertEquals(actualWithDrawAmount, expectedWithdrawAmount);
-			Logger.log("actualWithDrawAmount vs expectedWithdrawAmount validation PASSED", "Withdraw",
-					"Successful_Withdraw");
+			String actualWithdrawAmount = transactionDetailsPage.getAmountTxtValue();
+			
+			try {
+				
+				Assert.assertEquals(actualWithdrawAmount, expectedWithdrawAmount);
+				Logger.log("actualWithDrawAmount vs expectedWithdrawAmount validation PASSED", "Withdraw",
+						"Successful_Withdraw");
+				
+			}catch(java.lang.AssertionError e) {
+				
+				System.out.println("Exception : "+ e.getMessage());
+				Logger.log("actualWithDrawAmount vs expectedWithdrawAmount validation FAILED : "+e.getMessage(), "Withdraw",
+						"Successful_Withdraw");
+			}
+			
 
 //			get account transaction ID UI
 			transactionID = transactionDetailsPage.getTransactionID();
@@ -167,17 +182,22 @@ public class WithdrawSteps extends WebDriverManager {
 
 			// validate transaction by its ID in backend using webservice
 			getTransaction_ResponseMap = GetTransaction.getTransaction_Request(transactionID);
-			Assert.assertEquals(getTransaction_ResponseMap.get("amount"), expectedWithdrawAmount.replace("$", ""));
 			
-			Logger.log("actualAmount vs expectedWithdrawAmount validation PASSED", "Withdraw", "Successful_Withdraw");
-			
-			if (getTransaction_ResponseMap.get("amount").equalsIgnoreCase(expectedWithdrawAmount.replace("$", ""))) {
+			try {
+				
+				Assert.assertEquals(getTransaction_ResponseMap.get("amount"), expectedWithdrawAmount.replace("$", ""));
+				Logger.log("actualAmount vs expectedWithdrawAmount validation PASSED", "Withdraw", "Successful_Withdraw");
+		
 				Status = "Passed";
-			} else {
+			}catch(java.lang.AssertionError e) {
+				
 				Status = "Failed";
-				Comment = "failed to validate transaction";
-			}
+				Logger.log("actualAmount vs expectedWithdrawAmount validation Failed : "+e.getMessage(), "Withdraw", "Successful_Withdraw");
 
+				
+			}
+			
+			
 			System.out.println(testname + " : " + Status);
 
 			// write to excel write to log

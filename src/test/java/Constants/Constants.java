@@ -100,8 +100,11 @@ public class Constants {
 	public static Headers responseHeaders;
 	
 	public static HashMap<String,String> getAccount_ResponseMap = new HashMap<String,String>();
+	public static HashMap<String,String> getAccounts_ResponseMap = new HashMap<String,String>();
 	public static HashMap<String,String> getTransaction_ResponseMap = new HashMap<String,String>();
 	public static HashMap<String, String> testData = new HashMap<String, String>();
+	public static HashMap<String,String> login_ResponseMap = new HashMap<String,String>();
+	public static HashMap<String,String> getCustomer_ResponseMap = new HashMap<String,String>();
 
 	public static String actualUIbalance = null;
 

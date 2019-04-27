@@ -54,6 +54,12 @@ public class Lib {
 	public static String projpath = null;
 	
 	
+	public static String getMethodName() {
+		
+		String methodName = new Object(){}.getClass().getEnclosingMethod().getName();
+		return methodName;
+	}
+	
 	public void executeCommandLine(String cmd) {
 		
 		try {

@@ -4,11 +4,11 @@ Feature: Execute All WebServices
 @SMOKEWEBSERVICES @REGRESSION 
 Scenario Outline: Withdraw from account when funds are available
 
-	Given We create a new account
+	Given We create a new account 
 	Then call Login service
-	Then GetAccount service to get customerID
 	Then GetCustomer service to validate Customer info
 	Then GetAccounts service to get account info
+	Then GetAccount service to get validate the checkings account 	
 	Then UpdateAccount service to update account info
 	Then Deposit 1000 dollars to the first account
 	Then GetAccount to validate the deposit amount
@@ -29,5 +29,5 @@ Scenario Outline: Withdraw from account when funds are available
 	
 	Examples:
 	
-	|Testname            |
-	|Successful_SmokeTest|
+	|Testname            		    |
+	|Successful_WebServiceSmokeTest |
