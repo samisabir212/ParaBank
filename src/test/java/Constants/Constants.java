@@ -1,6 +1,8 @@
 package Constants;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
@@ -70,8 +72,12 @@ public class Constants {
 	public static String requestBodySoap = null;
 
 	public static String responseBody = null;
-
+	public static List<String> failedValidationMessageList = new ArrayList<String>();
 	public static int responseStatusCode = 0;
+	public static int totalValidationCount = 0;
+	public static int passedValidationCount = 0;
+	public static int failedValidationCount = 0;
+	
 	public static String Status = null;
 	public static String comment = null;
 	public static String runResultsFileName = null;

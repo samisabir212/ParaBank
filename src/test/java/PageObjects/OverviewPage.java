@@ -10,10 +10,7 @@ import org.testng.asserts.SoftAssert;
 
 import Util.Logger;
 
-
 public class OverviewPage extends BasePage {
-
-	
 
 	public OverviewPage() throws IOException {
 		super();
@@ -30,56 +27,101 @@ public class OverviewPage extends BasePage {
 
 	public String validateBalance_BalanceTotal_AvailbleAmount(String expectedBalance) throws IOException {
 
-		
-		try {
-			actualUIbalance = getBalanceValueTxt();
-			Assert.assertEquals(expectedBalance, actualUIbalance);	
-			Logger.log("actualUIbalance :" + actualUIbalance +"vs expected expected Balance : "+ expectedBalance +"Passed", "Withdraw", "Successful_Withdraw");
+		String actualAvailableBalance = getAvaibleAmount();
+		String actualTotalBalance = getTotalBalance();
 
-			String actualAvailableBalance = getAvaibleAmount();	
-			Assert.assertEquals(expectedBalance, actualAvailableBalance);
-			Logger.log("actualAvailableBalance :" + actualAvailableBalance +"vs expected expected Balance : "+ expectedBalance +"Passed", "Withdraw", "Successful_Withdraw");
+		actualUIbalance = getBalanceValueTxt();
+		if (actualUIbalance.equalsIgnoreCase(expectedBalance)
+				&& actualAvailableBalance.equalsIgnoreCase(expectedBalance)
+				&& actualTotalBalance.equalsIgnoreCase(expectedBalance)) {
 
-			String actualTotalBalance = getTotalBalance();
-			Assert.assertEquals(expectedBalance, actualTotalBalance);
-			Logger.log("actualTotalBalance :" + actualTotalBalance +"vs expected expected Balance : "+ expectedBalance +"Passed", "Withdraw", "Successful_Withdraw");
-			
-		}catch(java.lang.AssertionError e) {
-			
-			System.out.println("validateBalance_BalanceTotal_AvailbleAmount step Failed : "+ e.getMessage());
-			Logger.log("validateBalance_BalanceTotal_AvailbleAmount step Failed : "+ e.getMessage(), "Withdraw", "Successful_Withdraw");
-			
-			COMMENT = e.getMessage();
+			passedValidationCount++;
+			Logger.log("actualUIbalance :" + actualUIbalance + "vs expected expected Balance : " + expectedBalance
+					+ "Passed", "Withdraw", "Successful_Withdraw");
+			Logger.log("actualAvailableBalance :" + actualAvailableBalance + "vs expected expected Balance : "
+					+ expectedBalance + "Passed", "Withdraw", "Successful_Withdraw");
+			Logger.log("actualTotalBalance :" + actualTotalBalance + "vs expected expected Balance : " + expectedBalance
+					+ "Passed", "Withdraw", "Successful_Withdraw");
+			System.out.println("validateBalance_BalanceTotal_AvailbleAmount Passed");
+
+		} else {
+
+			try {
+				
+				Assert.assertEquals(actualUIbalance, expectedBalance);
+				Assert.assertEquals(actualAvailableBalance, expectedBalance);
+				Assert.assertEquals(actualTotalBalance, expectedBalance);
+
+			} catch (java.lang.AssertionError e) {
+
+				System.out.println("validateBalance_BalanceTotal_AvailbleAmount step Failed : " + e.getMessage());
+				Logger.log("validateBalance_BalanceTotal_AvailbleAmount step Failed : " + e.getMessage(), "Withdraw",
+						"Successful_Withdraw");
+
+				failedValidationCount++;
+				failedValidationMessageList.add(e.getMessage());
+			}
+		}
+
+		if (actualUIbalance.equalsIgnoreCase(expectedBalance)
+				&& actualAvailableBalance.equalsIgnoreCase(expectedBalance)
+				&& actualTotalBalance.equalsIgnoreCase(expectedBalance)) {
+
+			Logger.log("actualUIbalance :" + actualUIbalance + "vs expected expected Balance : " + expectedBalance
+					+ "Passed", "Withdraw", "Successful_Withdraw");
+			Logger.log("actualAvailableBalance :" + actualAvailableBalance + "vs expected expected Balance : "
+					+ expectedBalance + "Passed", "Withdraw", "Successful_Withdraw");
+			Logger.log("actualTotalBalance :" + actualTotalBalance + "vs expected expected Balance : " + expectedBalance
+					+ "Passed", "Withdraw", "Successful_Withdraw");
+
+			System.out.println("validateBalance_BalanceTotal_AvailbleAmount Passed");
+			passedValidationCount++;
+
+		} else {
+
+			try {
+
+				Assert.assertEquals(expectedBalance, actualUIbalance);
+				Assert.assertEquals(expectedBalance, actualAvailableBalance);
+				Assert.assertEquals(expectedBalance, actualTotalBalance);
+
+			} catch (java.lang.AssertionError e) {
+
+				Logger.log("validateBalance_BalanceTotal_AvailbleAmount : " + e.getMessage(), "Withdraw",
+						"Successful_Withdraw");
+				System.out.println("validateBalance_BalanceTotal_AvailbleAmount Failed : " + e.getMessage());
+
+				failedValidationCount++;
+				failedValidationMessageList.add(e.getMessage());
+
+			}
 
 		}
-		
+
 		return actualUIbalance;
 	}
-	
-	
-	
+
 	public String getBalanceValueTxt() {
-		
+
 		return balanceValueTxt.getText();
 	}
-	
+
 	public String getAccountID() {
 		return accountIdLink.getText();
 	}
 
 	public void clickAccountIDLink() throws InterruptedException, IOException {
-		
-		//clickOnElementUsingCustomTimeout(accountIdLink, driver, 4);
+
+		// clickOnElementUsingCustomTimeout(accountIdLink, driver, 4);
 		waitAndClickElement(accountIdLink);
 	}
-	
+
 	public String getAvaibleAmount() {
 		return availbleAmountTxt.getText();
 	}
-	
+
 	public String getTotalBalance() {
 		return totalBalanceTxt.getText();
 	}
-	
-	
+
 }

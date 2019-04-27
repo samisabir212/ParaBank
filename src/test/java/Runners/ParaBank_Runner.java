@@ -41,9 +41,6 @@ public class ParaBank_Runner extends AbstractTestNGCucumberTests {
 		Constants.companyUsername = System.getProperty("Username");
 		Constants.rcTicket = System.getProperty("rcticket");
 
-		// hardcoding enviornment and username for now :
-		// Constants.Environment = "STAGING";
-
 		System.out.println("ENV under test : " + Constants.Environment);
 
 		// create results folder
@@ -51,20 +48,24 @@ public class ParaBank_Runner extends AbstractTestNGCucumberTests {
 		System.out.println("results folder was create in this path : " + Constants.path);
 
 		// define log path
-		Constants.logpath = Constants.path + "/Logs";
+		
+		Constants.logpath = getLogFilePath();
 		System.out.println("Path to logs folder is : " + Constants.logpath);
 
 		// create log folders
 		Lib.createParaBankLogFolders();
 
 		// define variable results log folder path
-		Constants.PARABANK_RESULTS_LOG_FOLDER_PATH = "/Users/sami/Desktop/Automation/Parabank/Runs"
-				+ Lib.getcurrentdatefolder() + Constants.Environment + "/Logs";
+		Constants.PARABANK_RESULTS_LOG_FOLDER_PATH = getParaBankResultsLogFolderPath();
+		
 
 		// create and write column names for excel result
-		Constants.runResultsFileName = Constants.path + "/RunResults_PARABANK.xlsx";
+		Constants.runResultsFileName = getParaBankExcelResultsPath();
+		
 		Lib.create_SetupExcelResultsSheet(Constants.runResultsFileName);
-		Lib.setPermissions3(Constants.runResultsFileName);
+		
+		
+		//Lib.setPermissions3(Constants.runResultsFileName);
 
 		// create if else blocks for enviornment endpoints
 		if (Constants.Environment.equalsIgnoreCase("DEV")) {
@@ -186,5 +187,23 @@ public class ParaBank_Runner extends AbstractTestNGCucumberTests {
 		Constants.PASSWORD = Constants.testData.get("password");
 
 	}
+	
+	public String getLogFilePath() {
+		
+		return Constants.logpath = Constants.path + "/Logs";
 
+	}
+
+	
+	public String getParaBankResultsLogFolderPath() {
+		return Constants.PARABANK_RESULTS_LOG_FOLDER_PATH = "/Users/sami/Desktop/Automation/Parabank/Runs"
+				+ Lib.getcurrentdatefolder() + Constants.Environment + "/Logs";
+	}
+	
+	public String getParaBankExcelResultsPath() {
+		
+		return Constants.runResultsFileName = Constants.path + "/RunResults_PARABANK.xlsx";
+
+	}
+	
 }

@@ -95,37 +95,55 @@ public class WithdrawSteps extends WebDriverManager {
 				"Successful_Withdraw");
 
 		// Validate id value vs get account response id using TestNG assertion
-		try {
 
-			Assert.assertEquals(accountID, getAccount_ResponseMap.get("id"));
+		if (accountID.equalsIgnoreCase(getAccount_ResponseMap.get("id"))) {
 			Logger.log("Validate ID Passed", "Withdraw", "Successful_Withdraw");
 
-		} catch (java.lang.AssertionError e) {
+			passedValidationCount++;
 
-			System.out.println("getAccountBalance : Validate ID Failed : "+ e.getMessage());
-			Logger.log("getAccountBalance : Validate ID Failed : " + e.getMessage(), "Withdraw", "Successful_Withdraw");
+		} else {
 
-			COMMENT = e.getMessage();
+			try {
+
+				Assert.assertEquals(accountID, getAccount_ResponseMap.get("id"));
+
+			} catch (java.lang.AssertionError e) {
+
+				System.out.println("getAccountBalance : Validate ID Failed : " + e.getMessage());
+				Logger.log("getAccountBalance : Validate ID Failed : " + e.getMessage(), "Withdraw",
+						"Successful_Withdraw");
+				failedValidationCount++;
+				failedValidationMessageList.add(e.getMessage());
+			}
+
 		}
 
 		// validate if balance on ui matches back end result
 		actualUIbalance = actualUIbalance.replace("$", "");
 
-		try {
+		if (actualUIbalance.equalsIgnoreCase(getAccount_ResponseMap.get("balance"))) {
 
-			Assert.assertEquals(actualUIbalance, getAccount_ResponseMap.get("balance"));
+			passedValidationCount++;
 			Logger.log("getAccountBalance : Validate UI Balance PASSED", "Withdraw", "Successful_Withdraw");
 
-		} catch (java.lang.AssertionError e) {
+		} else {
 
-			System.out.println("getAccountBalance : Validate UIbalance Failed : " + e.getMessage());
-			Logger.log("getAccountBalance : Validate UIbalance Failed : " + e.getMessage(), "Withdraw", "Successful_Withdraw");
-		
-			COMMENT = e.getMessage();
+			try {
 
-			
+				Assert.assertEquals(actualUIbalance, getAccount_ResponseMap.get("balance"));
+
+			} catch (java.lang.AssertionError e) {
+
+				System.out.println("getAccountBalance : Validate UIbalance Failed : " + e.getMessage());
+				Logger.log("getAccountBalance : Validate UIbalance Failed : " + e.getMessage(), "Withdraw",
+						"Successful_Withdraw");
+
+				failedValidationCount++;
+				failedValidationMessageList.add(e.getMessage());
+
+			}
+
 		}
-		
 
 	}
 
@@ -135,8 +153,8 @@ public class WithdrawSteps extends WebDriverManager {
 
 		// send request to withdraw
 		expectedWithdrawAmount = Withdraw.withdraw_Request_For_SuccessfulWithdrawScenario(accountID, withdrawAmount);
-		Logger.log("withdraw : Successfully withdrew an amount of : " + withdrawAmount + " withdraw webservice", "Withdraw",
-				"Successful_Withdraw");
+		Logger.log("withdraw : Successfully withdrew an amount of : " + withdrawAmount + " withdraw webservice",
+				"Withdraw", "Successful_Withdraw");
 
 	}
 
@@ -147,16 +165,25 @@ public class WithdrawSteps extends WebDriverManager {
 		getAccount_ResponseMap = GetAccount.getAccount_Request(accountID);
 		expectedBalance = balance;
 
-		try {
-			Assert.assertEquals(expectedBalance, getAccount_ResponseMap.get("balance"));
+		if (getAccount_ResponseMap.get("balance").equalsIgnoreCase(expectedBalance)) {
+
+			passedValidationCount++;
 			Logger.log("actualBalance vs expectedBalance Assertion PASSED", "Withdraw", "Successful_Withdraw");
-		} catch (java.lang.AssertionError e) {
 
-			System.out.println("verifyBalance : actualBalance vs expectedBalance Assertion FAILED : " + e.getMessage());
-			Logger.log("verifyBalance : actualBalance vs expectedBalance Assertion FAILED : " + e.getMessage(), "Withdraw",
-					"Successful_Withdraw");
-			COMMENT = e.getMessage();
+		} else {
 
+			try {
+				Assert.assertEquals(getAccount_ResponseMap.get("balance"), expectedBalance);
+			} catch (java.lang.AssertionError e) {
+
+				System.out.println(
+						"verifyBalance : actualBalance vs expectedBalance Assertion FAILED : " + e.getMessage());
+				Logger.log("verifyBalance : actualBalance vs expectedBalance Assertion FAILED : " + e.getMessage(),
+						"Withdraw", "Successful_Withdraw");
+				failedValidationCount++;
+				failedValidationMessageList.add(e.getMessage());
+
+			}
 
 		}
 
@@ -178,57 +205,83 @@ public class WithdrawSteps extends WebDriverManager {
 //			validate transaction amount on UI
 		String actualWithdrawAmount = transactionDetailsPage.getAmountTxtValue();
 
-		try {
+		if (actualWithdrawAmount.equalsIgnoreCase(expectedWithdrawAmount)) {
 
-			Assert.assertEquals(actualWithdrawAmount, expectedWithdrawAmount);
-			Logger.log("verifyTransactionRecord : sactualWithDrawAmount vs expectedWithdrawAmount validation PASSED", "Withdraw",
-					"Successful_Withdraw");
-
-		} catch (java.lang.AssertionError e) {
-
-			System.out.println("actualWithDrawAmount vs expectedWithdrawAmount validation FAILED : " + e.getMessage());
-			Logger.log("verifyTransactionRecord : actualWithDrawAmount vs expectedWithdrawAmount validation FAILED : " + e.getMessage(),
+			passedValidationCount++;
+			Logger.log("verifyTransactionRecord : sactualWithDrawAmount vs expectedWithdrawAmount validation PASSED",
 					"Withdraw", "Successful_Withdraw");
-			COMMENT = e.getMessage();
+		} else {
+
+			try {
+
+				Assert.assertEquals(actualWithdrawAmount, expectedWithdrawAmount);
+
+			} catch (java.lang.AssertionError e) {
+
+				System.out.println(
+						"actualWithDrawAmount vs expectedWithdrawAmount validation FAILED : " + e.getMessage());
+				Logger.log(
+						"verifyTransactionRecord : actualWithDrawAmount vs expectedWithdrawAmount validation FAILED : "
+								+ e.getMessage(),
+						"Withdraw", "Successful_Withdraw");
+				failedValidationCount++;
+				failedValidationMessageList.add(e.getMessage());
+
+			}
 
 		}
 
-//			get account transaction ID UI
+//		get account transaction ID UI
 		transactionID = transactionDetailsPage.getTransactionID();
 		Logger.log("transactionID : " + transactionID, "Withdraw", "Successful_Withdraw");
 
 		getTransaction_ResponseMap = GetTransaction.getTransaction_Request(transactionID);
 
-		try {
+		if (getTransaction_ResponseMap.get("amount").equalsIgnoreCase(expectedWithdrawAmount.replace("$", ""))) {
 
-			Assert.assertEquals(getTransaction_ResponseMap.get("amount"), expectedWithdrawAmount.replace("$", ""));
+			passedValidationCount++;
 			Logger.log("actualAmount vs expectedWithdrawAmount validation PASSED", "Withdraw", "Successful_Withdraw");
 
-			Status = "Passed";
-			Lib.excelwrite(Constants.runResultsFileName,
-					new Object[] { Lib.getcurrentdate(), Environment, "Parabank", Constants.ACCOUNTSTATUS, "WITHDRAW",
-							testname, Status, "n/a", "n/a", "n/a", "RC-8989", "1.0", null });
-			
-		} catch (java.lang.AssertionError e) {
+		} else {
 
-			Status = "Failed";
-			System.out.println("verifyTransactionRecord: " + e.getMessage());
-			Logger.log("verifyTransactionRecord "
-					+ ": actualAmount vs expectedWithdrawAmount validation Failed : " + e.getMessage(), "Withdraw",
-					"Successful_Withdraw");
-			COMMENT = e.getMessage();
+			try {
 
-			Lib.excelwrite(Constants.runResultsFileName,
-					new Object[] { Lib.getcurrentdate(), Environment, "Parabank", Constants.ACCOUNTSTATUS, "WITHDRAW",
-							testname, Status, "n/a", "n/a", "n/a", "RC-8989", "1.0", COMMENT });
+				Assert.assertEquals(getTransaction_ResponseMap.get("amount"), expectedWithdrawAmount.replace("$", ""));
 
-		
+			} catch (java.lang.AssertionError e) {
+
+				System.out.println("verifyTransactionRecord: " + e.getMessage());
+				Logger.log("verifyTransactionRecord " + ": actualAmount vs expectedWithdrawAmount validation Failed : "
+						+ e.getMessage(), "Withdraw", "Successful_Withdraw");
+				failedValidationCount++;
+				failedValidationMessageList.add(e.getMessage());
+
+			}
+
 		}
+
+
+		if(failedValidationCount>=1) {
+			Status = "Failed";
+		}else {
+			Status = "Passed";
+		}
+
+
+		totalValidationCount = passedValidationCount + failedValidationCount;
+		System.out.println("totalValidationCount :"+ totalValidationCount);
+		System.out.println("passedValidationCount :"+ passedValidationCount);
+		System.out.println("failedValidationCount :"+ failedValidationCount);
 
 		System.out.println(testname + " : " + Status);
 
+		Lib.excelwrite(Constants.runResultsFileName,
+				new Object[] { Lib.getcurrentdate(), Environment, "Parabank", Constants.ACCOUNTSTATUS, "WITHDRAW",
+						testname, Status, totalValidationCount, passedValidationCount, failedValidationCount, "n/a",
+						"RC-8989", "1.0",failedValidationMessageList.toString()});
+
+
 		// write to excel write to log
-		
 
 		driver.close();
 		// driver.quit();

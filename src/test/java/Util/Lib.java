@@ -301,7 +301,7 @@ public class Lib {
 		XSSFWorkbook workbook = new XSSFWorkbook();
 		XSSFSheet sheet = workbook.createSheet("Result");
 		String[] headers = new String[] { "Date", "Enviornment", "Application", "Account Status", "Service Name",
-				"Test Name", "Status", "Expected Status Code", "Actual Status Code", "Endpoint", "RC ticket", "Release Number",
+				"Test Name", "Status","totalValidations","PassedValidations","FailedValidations", "Endpoint", "RC ticket", "Release Number",
 				"Comment"};
 
 		// System.out.println("Creating excel");
